@@ -1,0 +1,84 @@
+/*General*/
+body {
+    padding: 0;
+    margin-bottom: 60px;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+    padding-bottom: 60px;
+}
+
+
+.header-container {
+    display: inline-block;
+}
+
+.nav-menu {
+    float: left;
+    padding: 5px;
+    margin: 10px 10px 10px 10px;
+}
+
+.nav {
+    background: var(--primary-fg);
+    width: 100%;
+}
+
+.nav > li > a{
+    margin-top: 15px;
+    color: var(--text-color);
+}
+
+.nav > li > .active{
+    margin-top: 15px;
+    background-color: var(--primary) !important;
+    color: var(--primary-fg);
+}
+
+.nav > li > a:hover{
+    margin-top: 15px;
+    background-color: var(--body-quiet-color);
+    color: var(--primary-fg);
+}
+
+.nav > li > a:active{
+    margin-top: 15px;
+    background-color: var(--primary);
+    color: var(--primary);
+}
+
+.btn-primary{
+    margin-top:20px;
+    outline-color: var(--primary);
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-outline-primary{
+    margin-top:20px;
+    background: #2D4481;
+    outline-color: var(--primary);
+}
+
+.btn-primary:hover{
+    margin-top:20px;
+    background: var(--body-quiet-color);
+    outline-color: var(--primary);
+}
+
+.page-link {
+    background-color: var(--primary) !important;
+    color: var(--primary-fg) !important;
+}
+
+.page-link:hover{
+    background-color: var(--body-quiet-color) !important;
+    color: var(--primary-fg) !important;
+}
+
+.row {
+    margin: 10px;
+    padding: 10px;
+}

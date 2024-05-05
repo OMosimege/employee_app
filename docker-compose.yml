@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:12
+    environment:
+      - POSTGRES_DB=employee_db
+      - POSTGRES_USER=employee
+      - POSTGRES_PASSWORD=employee
+    volumes:
+      - .:/app
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DJANGO_DB_HOST=db
+      - DJANGO_DB_PORT=5432
+      - DJANGO_DB_NAME=employee_db
+      - DJANGO_DB_USER=employee
+      - DJANGO_DB_PASSWORD=employee
+      - DATABASE_URL=postgresql://employee:employee@db/employee_db
