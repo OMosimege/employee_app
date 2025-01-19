@@ -5,27 +5,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Employee</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'employees/styles.css' %}">
+    <title>Employees</title>
+    <link rel="stylesheet" href="{% static 'employees/styles.css' %}">
 </head>
 <body>
-    <h1>Add New Employee</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ employee_form.as_p }}
-        <h2>Skills</h2>
-        <table>
-            {{ skill_formset.management_form }}
-            {% for form in skill_formset %}
-            <tr>
-                <td>{{ form.skill }}</td>
-                <td>{{ form.years_experience }}</td>
-                <td>{{ form.seniority_rating }}</td>
-                <td>{{ form.DELETE }}</td>
-            </tr>
+    <div class="container">
+        <header class="header">
+            <h1>Employees</h1>
+            <p>{% if employees.exists %}There are {{ employees.count }} employees{% else %}No employees{% endif %}</p>
+            <a href="{% url 'new_employee' %}" class="new-employee-btn">
+                <span>+</span> New Employee
+            </a>
+        </header>
+
+        {% if employees.exists %}
+        <div class="employee-list">
+            {% for employee in employees %}
+            <div class="employee-card">
+                <p><strong>{{ employee.first_name }} {{ employee.last_name }}</strong></p>
+                <p>{{ employee.email }}</p>
+            </div>
             {% endfor %}
-        </table>
-        <button type="submit">Save Employee</button>
-    </form>
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <img src="{% static 'employees/Icon.JPG' %}" alt="No employees" class="empty-state-image">
+            <h2>There is nothing here</h2>
+            <p>Create a new employee by clicking the <strong>New Employee</strong> button to get started</p>
+        </div>
+        {% endif %}
+    </div>
 </body>
 </html>

@@ -60,3 +60,62 @@ button[type="submit"] {
 button:hover {
     background-color: #4a148c;
 }
+
+.container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    margin: 0;
+}
+
+.header .search {
+    display: flex;
+    align-items: center;
+}
+
+.header input[type="text"] {
+    padding: 5px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.header .filter {
+    margin-right: 10px;
+}
+
+.employee-card {
+    background-color: #3e3e3e;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.employee-card span {
+    margin-right: 10px;
+}
+
+.new-employee-btn {
+    background-color: #6a1b9a;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.new-employee-btn:hover {
+    background-color: #4a148c;
+}
