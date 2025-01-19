@@ -1,7 +1,7 @@
 /* General Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #1c1c1c;
+    background-color: #140414;
     color: #ffffff;
     margin: 0;
     padding: 0;
@@ -71,7 +71,8 @@ button:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    padding: 10px;
+    color: white;
 }
 
 .header h1 {
@@ -94,6 +95,41 @@ button:hover {
     margin-right: 10px;
 }
 
+.header-employees h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.header-employees p {
+    margin: 5px 0 0;
+    font-size: 1rem;
+}
+
+.header-button {
+    margin-left: 20px;
+}
+
+.new-employee-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #7030a0;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.new-employee-btn span {
+    margin-right: 5px;
+    font-size: 1.5rem;
+}
+
+.new-employee-btn:hover {
+    background-color: #4a148c;
+}
+
 .employee-card {
     background-color: #3e3e3e;
     padding: 15px;
@@ -108,14 +144,18 @@ button:hover {
     margin-right: 10px;
 }
 
-.new-employee-btn {
-    background-color: #6a1b9a;
-    color: white;
-    padding: 10px;
-    text-decoration: none;
-    border-radius: 5px;
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
-.new-employee-btn:hover {
-    background-color: #4a148c;
+.empty-state p {
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    font-size: 1rem;
+    text-align: center;
 }

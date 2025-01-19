@@ -11,12 +11,17 @@
 <body>
     <div class="container">
         <header class="header">
-            <h1>Employees</h1>
-            <p>{% if employees.exists %}There are {{ employees.count }} employees{% else %}No employees{% endif %}</p>
-            <a href="{% url 'new_employee' %}" class="new-employee-btn">
-                <span>+</span> New Employee
-            </a>
+            <div class="header-employees">
+                <h1>Employees</h1>
+                <p>{% if employees.exists %}There are {{ employees.count }} employees{% else %}No employees{% endif %}</p>
+            </div>
+            <div class="header-button">
+                <a href="{% url 'new_employee' %}" class="new-employee-btn">
+                    <span>+</span> New Employee
+                </a>
+            </div>
         </header>
+
 
         {% if employees.exists %}
         <div class="employee-list">
@@ -30,8 +35,10 @@
         {% else %}
         <div class="empty-state">
             <img src="{% static 'employees/Icon.JPG' %}" alt="No employees" class="empty-state-image">
-            <h2>There is nothing here</h2>
-            <p>Create a new employee by clicking the <strong>New Employee</strong> button to get started</p>
+            <p>There is nothing here</p>
+            <br/>
+            <p>Create a new employee by clicking the </p>
+            <p><strong>New Employee</strong> button to get started</p>
         </div>
         {% endif %}
     </div>
