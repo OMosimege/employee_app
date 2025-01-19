@@ -1,0 +1,31 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Employee</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'employees/styles.css' %}">
+</head>
+<body>
+    <h1>Add New Employee</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ employee_form.as_p }}
+        <h2>Skills</h2>
+        <table>
+            {{ skill_formset.management_form }}
+            {% for form in skill_formset %}
+            <tr>
+                <td>{{ form.skill }}</td>
+                <td>{{ form.years_experience }}</td>
+                <td>{{ form.seniority_rating }}</td>
+                <td>{{ form.DELETE }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <button type="submit">Save Employee</button>
+    </form>
+</body>
+</html>
