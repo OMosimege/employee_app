@@ -16,12 +16,11 @@
                 <p>{% if employees.exists %}There are {{ employees.count }} employees{% else %}No employees{% endif %}</p>
             </div>
             <div class="header-button">
-                <a href="{% url 'new_employee' %}" class="new-employee-btn">
+                <button class="new-employee-btn" id="newEmployeeBtn">
                     <span>+</span> New Employee
-                </a>
+                </button>
             </div>
         </header>
-
 
         {% if employees.exists %}
         <div class="employee-list">
@@ -41,6 +40,44 @@
             <p><strong>New Employee</strong> button to get started</p>
         </div>
         {% endif %}
+
+        <!-- Modal -->
+        <div id="employeeModal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="closeModal">&times;</span>
+                <h2>New Employee</h2>
+                <form method="post" action="{% url 'new_employee' %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="form-group">
+                        <label>Skills</label>
+                        <div id="skills-container">
+                            <div class="skill-row">
+                                <input type="text" name="skill" placeholder="Skill" required>
+                                <select name="years_experience" required>
+                                    <option value="1">1 Year</option>
+                                    <option value="2">2 Years</option>
+                                    <option value="3">3 Years</option>
+                                    <option value="4">4 Years</option>
+                                    <option value="5+">5+ Years</option>
+                                </select>
+                                <select name="seniority_rating" required>
+                                    <option value="Beginner">Beginner</option>
+                                    <option value="Intermediate">Intermediate</option>
+                                    <option value="Expert">Expert</option>
+                                </select>
+                                <button type="button" class="remove-skill">Remove</button>
+                            </div>
+                        </div>
+                        <button type="button" id="addSkillBtn">+ Add New Skill</button>
+                    </div>
+                    <button type="submit" class="save-employee-btn">Save and Add Employee</button>
+                </form>
+            </div>
+        </div>
     </div>
+
+    <!-- Link to the external JavaScript file -->
+    <script src="{% static 'employees/modal.js' %}"></script>
 </body>
 </html>

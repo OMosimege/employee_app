@@ -17,6 +17,9 @@ form {
     padding: 20px;
     background-color: #2b2b2b;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 form h2 {
@@ -158,4 +161,105 @@ button:hover {
     line-height: 1;
     font-size: 1rem;
     text-align: center;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    background-color: #2b2b2b;
+    margin: 50px 0;
+    padding: 20px;
+    border-radius: 10px;
+    width: 40%;
+    color: white;
+    position: relative;
+    left: 0;
+    top: 50px;
+    transform: translateX(0);
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.skill-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.skill-row input,
+.skill-row select {
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #444;
+    color: white;
+}
+
+button.remove-skill {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+button.remove-skill:hover {
+    background-color: #e60000;
+}
+
+button#addSkillBtn {
+    background-color: #6a1b9a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+button#addSkillBtn:hover {
+    background-color: #4a148c;
+}
+
+button.save-employee-btn {
+    background-color: #6a1b9a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+}
+
+button.save-employee-btn:hover {
+    background-color: #4a148c;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 80%;
+        left: 10px;
+    }
 }

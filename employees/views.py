@@ -6,7 +6,8 @@ from django.shortcuts import redirect
 
 def employee_list(request):
     employees = Employee.objects.all()
-    context = {'employees': employees}
+    form = EmployeeForm()
+    context = {'employees': employees, 'form': form}
     return render(request, 'employees/employee_list.html', context)
 
 
