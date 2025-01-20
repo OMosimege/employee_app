@@ -82,5 +82,3 @@ def new_employee(request):
     else:
         form = EmployeeForm()
     return render(request, 'employees/new_employee.html', {'form': form})
-
-

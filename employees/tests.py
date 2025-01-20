@@ -115,3 +115,75 @@ class EmployeeViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['employees'].count(), 0)
 
+
+class EditEmployeeTestCase(TestCase):
+    def setUp(self):
+        # Create a test employee
+        self.employee = Employee.objects.create(
+            employee_id="TK1234",
+            first_name="John",
+            last_name="Doe",
+            contact_number="1234567890",
+            email="john.doe@example.com",
+            date_of_birth="1990-01-01",
+            address="123 Main St",
+            city="Test City",
+            postal_code="12345",
+            country="Test Country"
+        )
+        self.edit_url = reverse('edit_employee', args=[self.employee.employee_id])
+
+    def test_edit_employee_form_rendering(self):
+        """Test that the edit form renders correctly with the employee's data."""
+        response = self.client.get(self.edit_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, self.employee.first_name)
+        self.assertContains(response, self.employee.last_name)
+        self.assertContains(response, self.employee.email)
+
+    def test_edit_employee_success(self):
+        """Test that valid data successfully updates the employee."""
+        data = {
+            "first_name": "Jane",
+            "last_name": "Smith",
+            "contact_number": "0987654321",
+            "email": "jane.smith@example.com",
+            "date_of_birth": "1985-05-15",
+            "address": "456 Another St",
+            "city": "New City",
+            "postal_code": "54321",
+            "country": "New Country",
+        }
+        response = self.client.post(self.edit_url, data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 200)
+
+        # Check JSON response
+        self.assertJSONEqual(response.content, {"success": True})
+
+        # Verify that the employee was updated
+        self.employee.refresh_from_db()
+        self.assertEqual(self.employee.first_name, data["first_name"])
+        self.assertEqual(self.employee.last_name, data["last_name"])
+        self.assertEqual(self.employee.email, data["email"])
+
+    def test_edit_employee_validation_error(self):
+        """Test that invalid data returns validation errors."""
+        invalid_data = {
+            "first_name": "",  # Required field is empty
+            "last_name": "Smith",
+            "contact_number": "0987654321",
+            "email": "not-an-email",  # Invalid email format
+            "date_of_birth": "2023-01-01",
+            "address": "456 Another St",
+            "city": "New City",
+            "postal_code": "54321",
+            "country": "New Country",
+        }
+        response = self.client.post(self.edit_url, invalid_data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 200)
+
+        # Check JSON response for errors
+        json_response = response.json()
+        self.assertFalse(json_response["success"])
+        self.assertIn("first_name", json_response["errors"])
+        self.assertIn("email", json_response["errors"])
