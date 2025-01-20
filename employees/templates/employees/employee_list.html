@@ -45,43 +45,49 @@
         <div id="employeeModal" class="modal" style="{% if show_modal %}display: block;{% else %}display: none;{% endif %}">
             <div class="modal-content">
                 <span class="close" id="closeModal">&times;</span>
-                <p>New Employee</p>
-                <p class="basic-info">Basic Info</p>
-                <form method="post" action="">
+                <h2>New Employee</h2>
+                <form method="post" action="" autocomplete="off">
                     {% csrf_token %}
-                    {{ form.as_p }}
+                    {% for field in form %}
                     <div class="form-group">
                         <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                         {{ field }}
                         {% if field.errors %}
-                            <ul class="errorlist">
-                                {% for error in field.errors %}
-                                    <li>{{ error }}</li>
-                                {% endfor %}
-                            </ul>
+                        <ul class="errorlist">
+                            {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
                         {% endif %}
-                        <label>Skills</label>
-                        <div id="skills-container">
-                            <div class="skill-row">
-                                <input type="text" name="skill" placeholder="Skill" required>
-                                <select name="years_experience" required>
-                                    <option value="1">1 Year</option>
-                                    <option value="2">2 Years</option>
-                                    <option value="3">3 Years</option>
-                                    <option value="4">4 Years</option>
-                                    <option value="5+">5+ Years</option>
-                                </select>
-                                <select name="seniority_rating" required>
-                                    <option value="Beginner">Beginner</option>
-                                    <option value="Intermediate">Intermediate</option>
-                                    <option value="Expert">Expert</option>
-                                </select>
-                                <button type="button" class="remove-skill">Remove</button>
-                            </div>
-                        </div>
-                        <button type="button" id="addSkillBtn">+ Add New Skill</button>
                     </div>
-                    <button type="submit" class="save-employee-btn">Save and Add Employee</button>
+                    {% endfor %}
+
+                    <!-- Skills Section -->
+                    <h3>Skills</h3>
+                    <div id="skills-container">
+                        <div class="skill-row">
+                            <input type="text" name="skill" placeholder="Skill" required>
+                            <select name="years_experience" required>
+                                <option value="1">1 Year</option>
+                                <option value="2">2 Years</option>
+                                <option value="3">3 Years</option>
+                                <option value="4">4 Years</option>
+                                <option value="5+">5+ Years</option>
+                            </select>
+                            <select name="seniority_rating" required>
+                                <option value="Beginner">Beginner</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Expert">Expert</option>
+                            </select>
+                            <button type="button" class="remove-skill">Remove</button>
+                        </div>
+                    </div>
+                    <button type="button" id="addSkillBtn">+ Add New Skill</button>
+
+                    <!-- Submit Button -->
+                    <div class="form-group">
+                        <button type="submit" class="save-employee-btn">Save and Add Employee</button>
+                    </div>
                 </form>
             </div>
         </div>

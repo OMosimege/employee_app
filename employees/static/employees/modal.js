@@ -3,24 +3,28 @@ document.addEventListener("DOMContentLoaded", () => {
     const modal = document.getElementById("employeeModal");
     const openModalBtn = document.getElementById("newEmployeeBtn");
     const closeModalBtn = document.getElementById("closeModal");
+    const form = modal.querySelector("form");
 
-    // Open the modal when the button is clicked
+    // Open the modal
     openModalBtn.addEventListener("click", () => {
         modal.style.display = "block";
     });
 
-    // Close the modal when the close button is clicked
+    // Close the modal and reset the form
     closeModalBtn.addEventListener("click", () => {
         modal.style.display = "none";
+        form.reset(); // Clear all fields
     });
 
-    // Close the modal when clicking outside the modal content
+    // Close modal when clicking outside the modal content
     window.addEventListener("click", (event) => {
         if (event.target === modal) {
             modal.style.display = "none";
+            form.reset(); // Clear all fields
         }
     });
 });
+
 
 
 // Add and remove skills dynamically
