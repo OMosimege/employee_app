@@ -1,0 +1,49 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Employee Form{% endblock %}</title>
+    <script src="{% static 'employees/modal.js' %}"></script>
+</head>
+<body>
+    <form method="post" id="employeeForm">
+        <h2>{% block heading %}{% endblock %}</h2>
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% for field in form %}
+            {% if field.errors %}
+                <div style="color: red;">
+                    {{ field.errors }}
+                </div>
+            {% endif %}
+        {% endfor %}
+        {% block extra_fields %}
+        <!-- Skills Section -->
+        <h3>Skills</h3>
+        <div id="skills-container">
+            <div class="skill-row">
+                <input type="text" name="skill" placeholder="Skill" required>
+                <select name="years_experience" required>
+                    <option value="1">1 Year</option>
+                    <option value="2">2 Years</option>
+                    <option value="3">3 Years</option>
+                    <option value="4">4 Years</option>
+                    <option value="5+">5+ Years</option>
+                </select>
+                <select name="seniority_rating" required>
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Expert">Expert</option>
+                </select>
+                <button type="button" class="remove-skill">Remove</button>
+            </div>
+        </div>
+        <button type="button" id="addSkillBtn">+ Add New Skill</button>
+        {% endblock %}
+        <button type="submit" id="saveEmployeeBtn">{% block submit_button %}Save{% endblock %}</button>
+    </form>
+</body>
+</html>

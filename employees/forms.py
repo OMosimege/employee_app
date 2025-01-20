@@ -23,8 +23,13 @@ class EmployeeForm(forms.ModelForm):
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        if Employee.objects.filter(email=email).exists():
-            raise forms.ValidationError("An employee with this email address already exists.")
+        if not self.instance.pk:  # This means the form is for a new employee
+            if Employee.objects.filter(email=email).exists():
+                raise ValidationError("An employee with this email address already exists.")
+        else:  # This means the form is for an existing employee (edit)
+            # Check if the email belongs to a different employee
+            if Employee.objects.filter(email=email).exclude(pk=self.instance.pk).exists():
+                raise ValidationError("An employee with this email address already exists.")
         return email
 
     def clean_date_of_birth(self):

@@ -1,7 +1,21 @@
 from .models import Employee, Skill
 from .forms import EmployeeForm
-from django.shortcuts import render
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse
+
+
+def edit_employee(request, employee_id):
+    employee = get_object_or_404(Employee, employee_id=employee_id)
+    if request.method == 'POST':
+        form = EmployeeForm(request.POST, instance=employee)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
+    else:
+        form = EmployeeForm(instance=employee)
+    return render(request, 'employees/edit_employee.html', {'form': form})
 
 
 def employee_list(request):
@@ -60,12 +74,13 @@ def employee_list(request):
 def new_employee(request):
     if request.method == 'POST':
         form = EmployeeForm(request.POST)
-
         if form.is_valid():
             form.save()
-            return redirect('employee_list')
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
     else:
         form = EmployeeForm()
-
     return render(request, 'employees/new_employee.html', {'form': form})
+
 

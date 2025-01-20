@@ -14,7 +14,7 @@
 
         <header class="header">
             <div class="header-employees">
-                <h1>Employees</h1>
+                <h2>Employees</h2>
                 <p>{% if employees.exists %}There are {{ employees.count }} employees{% else %}No employees{% endif %}</p>
             </div>
 
@@ -49,13 +49,13 @@
             </button>
         </header>
 
-
-
         {% if employees.exists %}
         <div class="employee-list">
             {% for employee in employees %}
             <div class="employee-card">
-                <p><strong>{{ employee.first_name }} {{ employee.last_name }}</strong></p>
+                <p>
+                    <strong class="employee-name" data-id="{{ employee.employee_id }}">{{ employee.first_name }} {{ employee.last_name }}</strong>
+                </p>
                 <p>{{ employee.email }}</p>
             </div>
             {% endfor %}
@@ -71,53 +71,10 @@
         {% endif %}
 
         <!-- Modal -->
-        <div id="employeeModal" class="modal" style="{% if show_modal %}display: block;{% else %}display: none;{% endif %}">
+        <div id="employeeModal" class="modal" style="display: none;">
             <div class="modal-content">
                 <span class="close" id="closeModal">&times;</span>
-                <h2>New Employee</h2>
-                <form method="post" action="" autocomplete="off">
-                    {% csrf_token %}
-                    {% for field in form %}
-                    <div class="form-group">
-                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                        {{ field }}
-                        {% if field.errors %}
-                        <ul class="errorlist">
-                            {% for error in field.errors %}
-                            <li>{{ error }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                    </div>
-                    {% endfor %}
-
-                    <!-- Skills Section -->
-                    <h3>Skills</h3>
-                    <div id="skills-container">
-                        <div class="skill-row">
-                            <input type="text" name="skill" placeholder="Skill" required>
-                            <select name="years_experience" required>
-                                <option value="1">1 Year</option>
-                                <option value="2">2 Years</option>
-                                <option value="3">3 Years</option>
-                                <option value="4">4 Years</option>
-                                <option value="5+">5+ Years</option>
-                            </select>
-                            <select name="seniority_rating" required>
-                                <option value="Beginner">Beginner</option>
-                                <option value="Intermediate">Intermediate</option>
-                                <option value="Expert">Expert</option>
-                            </select>
-                            <button type="button" class="remove-skill">Remove</button>
-                        </div>
-                    </div>
-                    <button type="button" id="addSkillBtn">+ Add New Skill</button>
-
-                    <!-- Submit Button -->
-                    <div class="form-group">
-                        <button type="submit" class="save-employee-btn">Save and Add Employee</button>
-                    </div>
-                </form>
+                <div id="modalBody"></div>
             </div>
         </div>
     </div>
