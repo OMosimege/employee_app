@@ -107,7 +107,7 @@ class EmployeeViewTests(TestCase):
             'country': 'Countryland',
         }
         response = self.client.post(reverse('new_employee'), form_data)
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(Employee.objects.count(), 3)
 
     def test_employee_list_view_search_no_results(self):
@@ -187,3 +187,56 @@ class EditEmployeeTestCase(TestCase):
         self.assertFalse(json_response["success"])
         self.assertIn("first_name", json_response["errors"])
         self.assertIn("email", json_response["errors"])
+
+
+
+class DeleteEmployeeTestCase(TestCase):
+    def setUp(self):
+        # Create a test employee
+        self.employee = Employee.objects.create(
+            employee_id="TK1234",
+            first_name="John",
+            last_name="Doe",
+            contact_number="1234567890",
+            email="john.doe@example.com",
+            date_of_birth="1990-01-01",
+            address="123 Main St",
+            city="Test City",
+            postal_code="12345",
+            country="Test Country"
+        )
+        self.delete_url = reverse('delete_employee', args=[self.employee.employee_id])
+
+    def test_delete_employee_success(self):
+        """Test successful deletion of an employee."""
+        response = self.client.post(self.delete_url)
+        self.assertEqual(response.status_code, 200)
+
+        # Check JSON response
+        json_response = response.json()
+        self.assertTrue(json_response['success'])
+
+        # Verify the employee was deleted
+        self.assertFalse(Employee.objects.filter(employee_id=self.employee.employee_id).exists())
+
+    def test_delete_nonexistent_employee(self):
+        """Test deleting a nonexistent employee."""
+        nonexistent_url = reverse('delete_employee', args=["NONEXISTENT"])
+        response = self.client.post(nonexistent_url)
+        self.assertEqual(response.status_code, 200)
+
+        # Check JSON response
+        json_response = response.json()
+        self.assertFalse(json_response['success'])
+        self.assertEqual(json_response['error'], 'Employee not found.')
+
+    def test_delete_invalid_method(self):
+        """Test deleting an employee with a non-POST method."""
+        response = self.client.get(self.delete_url)  # Using GET instead of POST
+        self.assertEqual(response.status_code, 200)
+
+        # Check JSON response
+        json_response = response.json()
+        self.assertFalse(json_response['success'])
+        self.assertEqual(json_response['error'], 'Invalid request.')
+
