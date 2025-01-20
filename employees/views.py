@@ -82,3 +82,14 @@ def new_employee(request):
     else:
         form = EmployeeForm()
     return render(request, 'employees/new_employee.html', {'form': form})
+
+def delete_employee(request, employee_id):
+    """Delete an employee record."""
+    if request.method == 'POST':
+        try:
+            employee = Employee.objects.get(employee_id=employee_id)
+            employee.delete()
+            return JsonResponse({'success': True})
+        except Employee.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Employee not found.'})
+    return JsonResponse({'success': False, 'error': 'Invalid request.'})
