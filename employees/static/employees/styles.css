@@ -71,11 +71,13 @@ button:hover {
 }
 
 .header {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 2fr 3fr 2fr 1fr;
     align-items: center;
+    gap: 20px;
     padding: 10px;
     color: white;
+    width: 100%;
 }
 
 .header h1 {
@@ -101,6 +103,7 @@ button:hover {
 .header-employees h1 {
     margin: 0;
     font-size: 1.5rem;
+
 }
 
 .header-employees p {
@@ -111,6 +114,126 @@ button:hover {
 .header-button {
     margin-left: 20px;
 }
+
+/* Header Controls */
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Search bar */
+.search-form {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align items to the left */
+    gap: 10px; /* Add space between search and input */
+    margin-left: 20px;
+    flex: 1;
+}
+
+.search-input {
+    flex-grow: 1; /* Allow the search bar to stretch */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #2b2b2b;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+}
+
+/* Filter controls styling */
+.filter-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px; /* Space between dropdown and buttons */
+    flex: 1;
+}
+
+.filter-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.filter-select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #2b2b2b;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+}
+
+.filter-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #7030a0;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.filter-btn:hover {
+    background-color: #4a148c;
+}
+
+/* Left-align header text */
+.header-employees {
+    text-align: left;
+    flex: 1; /* Allow this section to take up available space */
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 10px; /* Space between Apply and Clear buttons */
+}
+
+/* New Employee button */
+.new-employee-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #7030a0;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.new-employee-btn span {
+    margin-right: 5px;
+    font-size: 1.5rem;
+}
+
+.new-employee-btn:hover {
+    background-color: #4a148c;
+}
+
+.clear-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #6a1b9a;
+    color: white;
+    font-size: 1rem;
+    text-decoration: none;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.clear-btn:hover {
+    background-color: #4a148c;
+}
+
+
 
 .new-employee-btn {
     display: inline-flex;

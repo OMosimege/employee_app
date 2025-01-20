@@ -7,20 +7,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employees</title>
     <link rel="stylesheet" href="{% static 'employees/styles.css' %}">
+    <script src="{% static 'employees/modal.js' %}"></script>
 </head>
 <body>
     <div class="container">
+
         <header class="header">
             <div class="header-employees">
                 <h1>Employees</h1>
                 <p>{% if employees.exists %}There are {{ employees.count }} employees{% else %}No employees{% endif %}</p>
             </div>
-            <div class="header-button">
-                <button class="new-employee-btn" id="newEmployeeBtn">
-                    <span>+</span> New Employee
-                </button>
+
+            <form class="search-form" method="get">
+                <input type="text" name="search" class="search-input" placeholder="Search" value="{{ request.GET.search }}">
+            </form>
+
+            <div class="filter-controls">
+                <form method="get" class="filter-form" id="filterForm">
+                    <select name="filter" class="filter-select" id="filterDropdown">
+                        <option value="">Filter by</option>
+                        {% for year in years %}
+                        <option value="year_{{ year.year }}" {% if request.GET.filter == "year_{{ year.year }}" %}selected{% endif %}>
+                            Year: {{ year.year }}
+                        </option>
+                        {% endfor %}
+                        {% for skill in skills %}
+                        <option value="skill_{{ skill.id }}" {% if request.GET.filter == "skill_{{ skill.id }}" %}selected{% endif %}>
+                            Skill: {{ skill.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <div class="filter-buttons">
+                        <button type="submit" class="filter-btn">Apply</button>
+                        <a href="{% url 'employee_list' %}" class="clear-btn">Clear</a>
+                    </div>
+                </form>
             </div>
+
+            <button class="new-employee-btn" id="newEmployeeBtn">
+                <span>+</span> New Employee
+            </button>
         </header>
+
+
 
         {% if employees.exists %}
         <div class="employee-list">
