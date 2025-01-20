@@ -42,14 +42,24 @@
         {% endif %}
 
         <!-- Modal -->
-        <div id="employeeModal" class="modal">
+        <div id="employeeModal" class="modal" style="{% if show_modal %}display: block;{% else %}display: none;{% endif %}">
             <div class="modal-content">
                 <span class="close" id="closeModal">&times;</span>
-                <h2>New Employee</h2>
-                <form method="post" action="{% url 'new_employee' %}">
+                <p>New Employee</p>
+                <p class="basic-info">Basic Info</p>
+                <form method="post" action="">
                     {% csrf_token %}
                     {{ form.as_p }}
                     <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <ul class="errorlist">
+                                {% for error in field.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                         <label>Skills</label>
                         <div id="skills-container">
                             <div class="skill-row">

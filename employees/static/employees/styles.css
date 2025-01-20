@@ -256,6 +256,34 @@ button.save-employee-btn:hover {
     background-color: #4a148c;
 }
 
+input[type="date"] {
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #444;
+    color: white;
+    width: 100%;
+    font-size: 1rem;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+
+ul.errorlist {
+    color: red;
+    font-size: 0.9rem;
+    margin: 5px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul.errorlist li {
+    margin: 0;
+}
+
+
 /* Responsiveness */
 @media (max-width: 768px) {
     .modal-content {

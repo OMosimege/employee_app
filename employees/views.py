@@ -6,9 +6,25 @@ from django.shortcuts import redirect
 
 def employee_list(request):
     employees = Employee.objects.all()
+
+    if request.method == 'POST':
+        form = EmployeeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('employee_list')
+        else:
+            return render(request, 'employees/employee_list.html', {
+                'employees': employees,
+                'form': form,
+                'show_modal': True
+            })
+
     form = EmployeeForm()
-    context = {'employees': employees, 'form': form}
-    return render(request, 'employees/employee_list.html', context)
+    return render(request, 'employees/employee_list.html', {
+        'employees': employees,
+        'form': form,
+        'show_modal': False
+    })
 
 
 def new_employee(request):

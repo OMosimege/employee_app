@@ -1,21 +1,27 @@
 // Modal functionality
-const modal = document.getElementById("employeeModal");
-const openModalBtn = document.getElementById("newEmployeeBtn");
-const closeModalBtn = document.getElementById("closeModal");
+document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("employeeModal");
+    const openModalBtn = document.getElementById("newEmployeeBtn");
+    const closeModalBtn = document.getElementById("closeModal");
 
-openModalBtn.onclick = function () {
-    modal.style.display = "block";
-};
+    // Open the modal when the button is clicked
+    openModalBtn.addEventListener("click", () => {
+        modal.style.display = "block";
+    });
 
-closeModalBtn.onclick = function () {
-    modal.style.display = "none";
-};
-
-window.onclick = function (event) {
-    if (event.target === modal) {
+    // Close the modal when the close button is clicked
+    closeModalBtn.addEventListener("click", () => {
         modal.style.display = "none";
-    }
-};
+    });
+
+    // Close the modal when clicking outside the modal content
+    window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+});
+
 
 // Add and remove skills dynamically
 const skillsContainer = document.getElementById("skills-container");
